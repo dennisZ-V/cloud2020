@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("consumer/payment")
 public class OrderController {
 
-//    public static final String PAYMENT_URL = "http://localhost:8001";
+    //    public static final String PAYMENT_URL = "http://localhost:8001";
     public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
     @Autowired
@@ -31,5 +31,11 @@ public class OrderController {
     @GetMapping("findById/{id}")
     public CommonResult<Payment> findById(@PathVariable Long id) {
         return restTemplate.getForObject(PAYMENT_URL + "/payment/findById/" + id, CommonResult.class);
+    }
+
+    @GetMapping("zipkin")
+    public String paymentZipkin(){
+        String result = restTemplate.getForObject(PAYMENT_URL + "/payment/zipkin", String.class);
+        return result;
     }
 }
